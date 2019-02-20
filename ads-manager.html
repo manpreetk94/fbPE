@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>FB Power-Editor</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="js/daterangepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+
+<!-- date range -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#demo').daterangepicker({
+    "showDropdowns": true, 
+    "showWeekNumbers": true,
+    "timePickerSeconds": true,
+    "autoApply": true,
+    "dateLimit": {
+        "days": 7
+    },
+    "ranges": {
+        "Today": [
+            "2017-09-18T06:26:37.657Z",
+            "2017-09-18T06:26:37.657Z"
+        ],
+        "Yesterday": [
+            "2017-09-17T06:26:37.657Z",
+            "2017-09-17T06:26:37.657Z"
+        ],
+        "Last 7 Days": [
+            "2017-09-12T06:26:37.657Z",
+            "2017-09-18T06:26:37.657Z"
+        ],
+        "Last 30 Days": [
+            "2017-08-20T06:26:37.657Z",
+            "2017-09-18T06:26:37.658Z"
+        ],
+        "This Month": [
+            "2017-08-31T18:30:00.000Z",
+            "2017-09-30T18:29:59.999Z"
+        ],
+        "Last Month": [
+            "2017-07-31T18:30:00.000Z",
+            "2017-08-31T18:29:59.999Z"
+        ]
+    },
+    "locale": {
+        "direction": "ltr",
+        "format": "MM/DD/YYYY HH:mm",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "daysOfWeek": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    },
+    "alwaysShowCalendars": true,
+    "startDate": "09/12/2017",
+    "endDate": "09/18/2017",
+    "opens": "left"
+}, function(start, end, label) {
+  console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+});	
+});
+</script>
+<!-- header-filter-drop-down script-->
+<script type="text/javascript">
+		$(document).ready(function () {
+    $(".btn-select").each(function (e) {
+        var value = $(this).find("ul li.selected").html();
+        if (value != undefined) {
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+    });
+});
+
+$(document).on('click', '.btn-select', function (e) {
+    e.preventDefault();
+    var ul = $(this).find("ul");
+    if ($(this).hasClass("active")) {
+        if (ul.find("li").is(e.target)) {
+            var target = $(e.target);
+            target.addClass("selected").siblings().removeClass("selected");
+            var value = target.html();
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+        ul.hide();
+        $(this).removeClass("active");
+    }
+    else {
+        $('.btn-select').not(this).each(function () {
+            $(this).removeClass("active").find("ul").hide();
+        });
+        ul.slideDown(300);
+        $(this).addClass("active");
+    }
+});
+
+$(document).on('click', function (e) {
+    var target = $(e.target).closest(".btn-select");
+    if (!target.length) {
+        $(".btn-select").removeClass("active").find("ul").hide();
+    }
+});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.selectpicker').selectpicker();
+	});
+</script>
+<!-- show select dropdown on down arrow click-->
+<!-- <script type="text/javascript">
+	
+		$(document).ready(function(){
+    $('.caret-show-select').live('click', function() {        
+         $('.down-arrow-custom-auto-select').toggle('show');
+    });
+	});
+	
+</script> -->
+
+<!-- power editor menus script -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".power-editor-menu").click(function(event) {
+   	 $(".power-editor-menus-list").slideToggle();
+   	 $(".body-overlay").toggle();
+   	 $("body").toggleClass("overflowHdn");
+
+	});
+});
+</script>
+
+<!-- sub header-left account dropdown -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".sub-header-left-acnt-sec a").click(function(event) {
+   	 $(".personal-acc-by-id").slideToggle();   	 
+	});
+});
+</script>
+
+<!-- second tab duplicate entry popup script -->
+<script type="text/javascript">
+	$(document).ready(function(){		 
+		  $('.spinner .btn:first-of-type').on('click', function() {
+		    $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
+		  });
+		  $('.spinner .btn:last-of-type').on('click', function() {
+		    $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
+		  });		 
+	});
+
+</script>
+<!-- right drawer script -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".open-drw-arrow").click(function(event) {   	  
+   	 	$(".right-fix-drawer-outr").toggleClass("drawer-open-content"); 
+	});	
+	$(".open-drw").click(function(event) {   	  
+   	 	$(".right-fix-drawer-outr").addClass("drawer-open-content");
+	});		
+	});
+</script>
+</head>
+<body>
+	
+<div class="web-outr">	
+	<div class="header-outr">
+		<div class="header-inr">		 
+			<div class="container-fluid">
+				<div class="header-left-sec">			
+					<a href="#" class="logo"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+					<div class="power-editor-dropdown">
+						<a href="#" class="power-editor-menu"><i class="fa fa-list" aria-hidden="true"></i><span>Power Editor</span></a>
+						
+					</div>
+				</div>
+				<div class="power-editor-menus-list">
+					<div class="power-menu">
+						<span class="menu-arrow"></span>
+						<ul>
+							<li><h5><i class="fa fa-star" aria-hidden="true"></i> Frequently Used</h5></li>
+							<li><a href="ads-manager.hmtl"  class="active">Ads Manager</a></li>
+							<li><a href="index.html">Power Editor</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="header-right-ec pull-right">
+					<div class="header-search">
+						 <div class="input-group stylish-input-group">
+		                    <input type="text" class="form-control"  placeholder="Search" >
+		                    <span class="input-group-addon">
+		                        <button type="submit">
+		                            <span class="glyphicon glyphicon-search"></span>
+		                        </button>  
+		                    </span>
+		                </div>
+					</div>
+					<ul class="header-avatar">
+						<li>
+							 
+								<div class="dropdown header-ava">
+								  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <img src="img/ava-icon.png"> John <i class="fa fa-caret-down" aria-hidden="true"></i>
+								  </button>
+								  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">	
+								  	<span class="top-arrow"></span>		
+								  	<ul>
+								  		<li>
+								  		<a class="dropdown-item" href="#">Go to Personal News Feed</a><a class="dropdown-item pull-right" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+								  		</li>
+								  		<li>
+								  			<div class="different-acc">
+								  				<img src="../img/acc-img.png">
+								  				<p><b>Lorem ipsum dummy text</b>john@gmail.com</p>
+								  			</div>
+								  		</li>
+								  		<li>
+								  			<div class="different-acc active">
+								  				<img src="../img/acc-img.png">
+								  				<p><b>Lorem ipsum dummy text</b>john@gmail.com</p>
+								  			</div>
+								  		</li>
+								  		<li>
+								  			<div class="different-acc">
+								  				<img src="../img/acc-img.png">
+								  				<p><b>Lorem ipsum dummy text</b>john@gmail.com</p>
+								  			</div>
+								  		</li>
+								  	</ul>					    
+								    
+								  </div>
+								</div>
+						</li>
+						
+					</ul>
+					<ul class="header-right-icons">
+						<li><a href="#" class="notification"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+						<li><a href="#" class="header-pages"><i class="fa fa-flag" aria-hidden="true"></i></a></li>					
+					</ul>
+					<!-- <a href="#" class="help">Help <i class="fa fa-question-circle" aria-hidden="true"></i></a> -->
+				</div>
+			</div>		 
+		</div>
+	</div>
+	<div class="body-overlay"></div>
+	<div class="working-area-outr">
+		<div class="sub-header-outr">
+			<div class="sub-header-inr">
+				<div class="container-fluid">	
+						<div class="sub-header-left-acnt-sec">
+								<a href="#">Johnaccount <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+									<div class="personal-acc-by-id-outr">
+
+										<div class="personal-acc-by-id">
+											<span class="top-arrow"></span>
+											<ul><li style="padding: 15px;"><input type="text" name="" class="form-control" placeholder="Search"></li></ul>
+											<ul class="listing">										
+												<li>
+													<h5><img src="../img/prsnl-acnt-icon.png"> your personal accounts</h5>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category active">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+												</li>
+												<li>
+													<h5><img src="../img/prsnl-acnt-icon.png"> your personal accounts</h5>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+												</li>
+												<li>
+													<h5><img src="../img/prsnl-acnt-icon.png"> your personal accounts</h5>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+													<div class="account-category">
+														<img src="../img/acnt-by-id-icon.png">
+														<p><b>Lorem Ipsum Account</b>Account #: 156893694872356</p>
+													</div>
+												</li>
+											</ul>
+											
+										</div>
+									</div>		
+						</div>
+						<div class="sub-header-right-btns-sec">
+							<ul>
+									<li><button class="light-grey-btn">Discard Changes</button></li>
+									<li><button class="blue-btn"><i class="fa fa-arrow-up" aria-hidden="true"></i> Review Draft Items (3)</button></li>
+									<li><button class="light-grey-btn"><i class="fa fa-gear" aria-hidden="true"></i></button></li>
+							</ul>
+						</div>
+				</div>
+			</div>
+		</div>
+		<div class="filter-header-outr">
+				<div class="filter-header-inr">
+						<div class="container-fluid">
+							<div class="col-md-4 ads-mngr-sub-header-left">
+								<button class="light-grey-btn new-acc-report"><i class="fa fa-copy" aria-hidden="true"></i> <i class="fa fa-caret-down" aria-hidden="true"></i> </button><h1><b>Account : </b>John Clarke</h1>
+							</div>			
+							<div class="col-md-8 text-right ads-mngr-sub-header-right">
+								<div class="dropdown search-filter">
+									 <div class="dropdown">
+										  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    <i class="fa fa-search" aria-hidden="true"></i> Search
+										    <span class="caret"></span>
+										  </button>
+										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										  	<li class="dropdown-header">Search By</li>
+										    <li><a href="#">Action</a></li>
+										    <li><a href="#">Another action</a></li>
+										    <li><a href="#">Something else here</a></li>									    
+										  </ul>
+										</div>
+								</div>
+								<div class="header-filter">
+						            <div class="dropdown">
+										  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    <i class="fa fa-filter" aria-hidden="true"></i> Filters
+										    <span class="caret"></span>
+										  </button>
+										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										  	<li class="dropdown-header">Search By</li>
+										    <li><a href="#">Action</a></li>
+										    <li><a href="#">Another action</a></li>
+										    <li><a href="#">Something else here</a></li>									    
+										  </ul>
+									</div>
+								</div>
+								<div class="filter-by-date">
+									<div id="demo" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+						    			<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+									    <span></span> <b class="caret"></b>
+									</div>
+								</div>
+							</div>					 
+
+						</div>
+				</div>
+		</div>
+		<div class="working-area">
+			<div class="main-four-tabs">
+			    <div class=" " style="float: left; width: 100%">
+		            <div class="tab four-tabs" role="tabpanel">
+
+		                <!-- Nav tabs -->
+
+		                <ul class="nav nav-tabs main-tabs" role="tablist" style="margin-left: 1px;">
+
+		                    <li role="presentation" class="active acc-rev"><a href="#acc-rev" aria-controls="home" role="tab" data-toggle="tab">Account Overview</a></li>
+
+		                    <li role="presentation" class="camp"><a href="#camp" aria-controls="profile" role="tab" data-toggle="tab">Campaigns</a></li>
+
+		                    <li role="presentation" class="ad-sets"><a href="#ad-sets" aria-controls="messages" role="tab" data-toggle="tab">Ad Sets</a>
+								<div class="selected-row-count">2 selected <i class="fa fa-times" aria-hidden="true"></i></div>
+		                    </li>
+
+		                    <li role="presentation" class="ads"><a href="#ads" aria-controls="settings" role="tab" data-toggle="tab">Ads</a></li>
+
+		                </ul>
+
+		                <!-- Tab panes content goes here-->
+
+		                <div class="tab-content main-tabs-entries">
+
+		                    <div role="tabpanel" class="tab-pane active acc-data-tabs" id="acc-rev">
+		                    	<div class="col-md-10" style="padding: 0">
+
+	                                    <!-- Nav tabs -->
+	                                    <div class="card">
+		                                    <ul class="nav nav-tabs four-sub-tabs" role="tablist">
+		                                        <li role="presentation" class="active">
+		                                        	<a href="#reach" aria-controls="home" role="tab" data-toggle="tab">
+		                                        		<div class="reach">
+		                                        				<div class="rel-cont">Reach <i class="fa fa-info-circle" aria-hidden="true"></i></div>
+		                                        				<span class="sub-tab-down-arrow-search">		                                        					
+		                                        					<div class="down-arrow-custom-auto-select">
+		                                        						<!-- <i class="fa fa-caret-down caret-show-select" aria-hidden="true"></i> -->
+		                                        						 <div class="custom-autocomplete-select">
+																			<select class="selectpicker select-green-text show-tick" data-live-search="true">
+																			  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																			  <option data-tokens="mustard">Lorem</option>
+																			  <option data-tokens="frosting">Dummy text printing</option>
+																			  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																			  <option data-tokens="mustard">Lorem</option>
+																			  <option data-tokens="frosting">Dummy text printing</option>
+																			  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																			  <option data-tokens="mustard">Lorem</option>
+																			  <option data-tokens="frosting">Dummy text printing</option>
+																			</select>
+
+							                                        	</div>
+		                                        					</div>
+		                                        				</span>
+		                                        		</div>
+		                                        		<b class="count-in-number"><i class="fa fa-rupee" aria-hidden="true"></i> 25</b>
+		                                        	</a>
+		                                    	</li>
+		                                        <li role="presentation">
+		                                        	<a href="#spent" aria-controls="profile" role="tab" data-toggle="tab">
+		                                    			<div class="spent-amt">
+		                                    				Amount Spent <i class="fa fa-info-circle" aria-hidden="true"></i><span class="sub-tab-down-arrow-search"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+			                                    		</div>
+			                                    		<b class="count-in-number"><i class="fa fa-rupee" aria-hidden="true"></i> 25</b>
+		                                        	</a>
+
+		                                    	</li>
+		                                        <li role="presentation">
+		                                    		<a href="#impression" aria-controls="messages" role="tab" data-toggle="tab">
+			                                    		<div class="impre">
+			                                				Impressions <i class="fa fa-info-circle" aria-hidden="true"></i><span class="sub-tab-down-arrow-search"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+			                                    		</div>
+			                                    		<b class="count-in-number"><i class="fa fa-rupee" aria-hidden="true"></i> 25</b>			
+		                                    		</a>
+		                                        </li>
+		                                        <li role="presentation">
+		                                        	<a href="#link-clicks" aria-controls="settings" role="tab" data-toggle="tab">
+		                                        		<div class="link-clicks">
+		                                    				Link Clicks <i class="fa fa-info-circle" aria-hidden="true"></i><span class="sub-tab-down-arrow-search"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+			                                    		</div>
+			                                    		<b class="count-in-number"><i class="fa fa-rupee" aria-hidden="true"></i> 25</b>
+		                                        	</a> 
+		                                        </li>
+		                                    </ul>
+
+		                                    <!-- Tab panes -->
+		                                    <div class="tab-content">
+		                                        <div role="tabpanel" class="tab-pane active" id="reach">
+		                                        	<div class="no-result-found">
+		                                        			<img src="../img/no-result-img.jpg"><br>	
+		                                        			<b>No Activity During Date Range</b><br>
+		                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+		                                        	</div>	
+		                                        </div>
+		                                        <div role="tabpanel" class="tab-pane" id="spent">
+		                                        	<div class="no-result-found">
+		                                        			<img src="../img/no-result-img.jpg"><br>	
+		                                        			<b>No Activity During Date Range</b><br>
+		                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+		                                        	</div>		
+		                                        </div>
+		                                        <div role="tabpanel" class="tab-pane" id="impression">
+		                                        	<div class="no-result-found">
+		                                        			<img src="../img/no-result-img.jpg"><br>	
+		                                        			<b>No Activity During Date Range</b><br>
+		                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+		                                        	</div>	
+		                                        </div>
+		                                        <div role="tabpanel" class="tab-pane" id="link-clicks">
+		                                        	<div class="no-result-found">
+		                                        			<img src="../img/no-result-img.jpg"><br>	
+		                                        			<b>No Activity During Date Range</b><br>
+		                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+		                                        	</div>	
+		                                        </div>
+		                                    </div>
+			
+	                                	</div>
+	                                	<div class="table-result">
+											<table class="table">
+											  <thead class="thead-default">
+											    <tr>
+											      <th>Objective</th>
+											      <th>Results</th>
+											      <th>Cost per Result</th>
+											      <th>Reach</th>
+											      <th>Amount Spent</th>
+											    </tr>
+											  </thead>
+											  <tbody>
+											    <tr>
+											      <td>Traffic</td>
+											      <td>23</td>
+											      <td>&#8377;14.23</td>
+											      <td>1,426</td>
+											      <td>&#8377;330.33</td>
+											    </tr>										
+											  </tbody>
+											</table>
+	                                	</div>
+	                                	<div class="row"> 
+	                                		<div class="col-md-6">
+				                                	<div class="age-area">
+				                                	   <div class="card">
+					                                    <ul class="nav nav-tabs" role="tablist">
+					                                        <li role="presentation" class="active">
+					                                        	<a href="#age-gender" aria-controls="home" role="tab" data-toggle="tab">
+					                                        		Age and Gender
+					                                        		 
+					                                        	</a>
+					                                    	</li>
+					                                        <li role="presentation">
+					                                        	<a href="#age" aria-controls="profile" role="tab" data-toggle="tab">	 
+					                                    			Age		                                    	 		                                    		 
+					                                        	</a>
+					                                    	</li>
+					                                        <li role="presentation">
+					                                    		<a href="#gender" aria-controls="messages" role="tab" data-toggle="tab">		                         		
+						                                			Gender 	
+					                                    		</a>
+					                                        </li>
+					                                       
+					                                    </ul>
+					                                     
+					                                    <div class="tab-content">
+					                                        <div role="tabpanel" class="tab-pane active" id="age-gender">
+					                                        	<div class="custom-autocomplete-select">
+					                                        		<select class="selectpicker select-blue-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+																	<select class="selectpicker select-green-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+					                                        	</div>
+					                                        	<div class="col-md-12 col-sm-12 graph-sec">
+					                                        		<img src="../img/img1.jpg" class="img-responsive">
+					                                        	</div>		
+					                                        </div>
+					                                        <div role="tabpanel" class="tab-pane" id="age">
+					                                        	<div class="custom-autocomplete-select">
+					                                        		<select class="selectpicker select-blue-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+																	<select class="selectpicker select-green-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+					                                        	</div>
+					                                        	<div class="col-md-12 col-sm-12 graph-sec">
+					                                        		<img src="../img/img2.jpg" class="img-responsive">
+					                                        	</div>	
+					                                        </div>
+					                                        <div role="tabpanel" class="tab-pane" id="gender">
+					                                        		<div class="custom-autocomplete-select">
+					                                        		<select class="selectpicker select-blue-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+																	<select class="selectpicker select-green-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+					                                        	</div>
+					                                        	<div class="col-md-12 col-sm-12 graph-sec">
+					                                        		<img src="../img/img3.jpg" class="img-responsive">
+					                                        	</div>	
+					                                        </div>
+					                                        
+					                                    </div>
+									
+				                                	</div>
+				                                	</div>
+				                            </div>    	
+				                            <div class="col-md-6">
+				                                	<div class="hours-area">
+				                                	   <div class="card">
+					                                    <ul class="nav nav-tabs" role="tablist">
+					                                        <li role="presentation" class="active">
+					                                        	<a href="#age-gender" aria-controls="home" role="tab" data-toggle="tab">
+					                                        		Hour				                                        		 
+					                                        	</a>
+					                                    	</li>
+					                                        
+					                                       
+					                                    </ul>
+					                                     
+					                                    <div class="tab-content">
+					                                        <div role="tabpanel" class="tab-pane active" id="age-gender">
+					                                        	<div class="custom-autocomplete-select">
+					                                        		<select class="selectpicker select-blue-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+																	<select class="selectpicker select-green-text show-tick" data-live-search="true">
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																	  <option data-tokens="mustard">Lorem</option>
+																	  <option data-tokens="frosting">Dummy text printing</option>
+																	</select>
+
+					                                        	</div>
+					                                        	<div class="col-md-12 col-sm-12 graph-sec">
+					                                        		<img src="../img/img4.jpg" class="img-responsive">
+					                                        	</div>	
+					                                        </div>	                                       	                                        
+					                                    </div>		
+				                                	</div>
+				                                	</div>
+		                                	</div>
+		                                </div>	
+		                                <div class="location-section">
+		                                	<div class="row">
+		                                			<div class="col-md-12">
+		                                					<h1>Location</h1>
+		                                					<div class="col-md-2 location-radio-selection">
+		                                						 <form>
+																	    <label class="radio-inline">
+																	      <input type="radio" name="optradio">Country
+																	    </label>
+																	    <label class="radio-inline">
+																	      <input type="radio" name="optradio">Region
+																	    </label>
+																	    <label class="radio-inline">
+																	      <input type="radio" name="optradio">DMA Region
+																	    </label>
+																	  </form>
+		                                					</div>
+		                                					<div class="col-md-10 location-map">
+		                                							<div class="map-result">
+		                                									<img src="../img/map-img.jpg">
+		                                							</div>
+		                                							<div class="select-on-map">
+		                                									<div class="custom-autocomplete-select">
+																				<select class="selectpicker  show-tick" data-live-search="true">
+																				  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																				  <option data-tokens="mustard">Lorem</option>
+																				  <option data-tokens="frosting">Dummy text printing</option>
+																				  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+																				   
+																				</select>
+
+					                                        				</div>
+		                                							</div>
+		                                					</div>
+		                                			</div>
+		                                	</div>
+		                                </div>
+		                                <div class="account-bottom-custom-table">
+		                                		<div class="col-md-12" style="padding: 0">
+		                                				<div class="top-custom-colums-dropdown pull-right">
+		                                					<div class="dropdown custm-columns">
+															  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+															    Columns
+															    <span class="caret"></span>
+															  </button>
+															  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+															    <li><a href="#">Action</a></li>
+															    <li><a href="#">Another action</a></li>
+															    <li><a href="#">Something else here</a></li>									    
+															  </ul>
+															</div>
+
+															<div class="dropdown breakdowns">
+															  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+															    Breakdown
+															    <span class="caret"></span>
+															  </button>
+															  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+															  	<li><a href="">Clear All Breakdowns</a></li>
+															  	<li class="dropdown-header">By delivery</li>
+															    <li><a href="#">Action</a></li>
+															    <li><a href="#">Another action</a></li>
+															    <li><a href="#">Something else here</a></li>									    
+															  </ul>
+															</div>
+
+		                                				</div>
+		                                				<div class="col-md-12 acc-table-result">
+								                                <div class="table-result">
+																	<table class="table">
+																	  <thead class="thead-default">
+																	    <tr>
+																	      <th>Account Name</th>
+																	      <th>Results</th>
+																	      <th>Reach</th>																       
+																	      <th>Amount Spent</th>
+																	      <th>Frequency</th>
+																	      <th>Impressions</th>
+																	      <th>Unique Link Clicks</th>
+																	    </tr>
+																	  </thead>
+																	  <tbody>
+																	    <tr>
+																	      <td>Johnaccount</td>
+																	      <td>-</td>
+																	      <td>-</td>
+																	      <td>-</td>
+																	      <td>-</td>
+																	      <td>-</td>
+																	      <td>-</td>
+																	    </tr>										
+																	  </tbody>
+																	</table>
+							                                	</div>
+		                                				</div>
+		                                		</div>
+		                                </div>
+		                    	</div>
+		                    	<div class="col-md-2 right-area" style="padding-right: 0">
+		                    			<div class="cost-summary">
+		                    					<h5>Account Spending Limit <i class="fa fa-info-circle" aria-hidden="true"></i></h5>
+		                    					<img src="../img/amount-slider.jpg">
+		                    					<p><b>&#8377; 330.00</b> spent toward limit.</p>
+		                    					<p><b>&#8377; 330.00</b> limit.</p>
+		                    					<p><a href="">Manage Billing & Payments</a></p>
+		                    			</div>
+		                    	</div>
+		                    </div>
+
+		                    <div role="tabpanel" class="tab-pane" id="camp">
+		                    	<div class="thress-tabs-table-top-filters">
+		                    		<div class="left-fil1">
+				                    		<div class="btn-and-caret-icon-dropdown">
+				                    			<a href="#" class="create-camp-btn">+ Create Campaign</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="btn-and-caret-icon-dropdown" style="margin-left:10px">
+				                    			<a href="#" class="create-camp-btn"><i class="fa fa-copy"></i> Duplicate</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="btn-and-caret-icon-dropdown" style="margin-left:10px">
+				                    			<a href="#" class="create-camp-btn"><i class="fa fa-pencil"></i> Edit</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="simple-default-icons-group" style="margin-left:10px">	
+												<ul>
+													<li><i class="fa fa-refresh"></i></li>
+													<li><i class="fa fa-trash"></i></li>
+													<li><i class="fa fa-edit"></i></li>
+													<li><i class="fa fa-tag"></i></li>
+												</ul>
+											</div>
+											<div class="single-btn-div" style="margin-left: 10px">
+												<button class="light-grey-btn" style="height: 24px;">Create Rule</button>
+											</div>
+									</div>
+									<div class="right-fil1">
+										<ul>
+											<li>
+													<div class="custom-autocomplete-select">
+		                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="5">
+														  <option data-tokens="ketchup mustard">Columns</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														</select>													
+		                                        	</div>
+											</li>
+											<li>
+													<div class="custom-autocomplete-select">
+		                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="5">
+														  <option data-tokens="ketchup mustard">Breakdown</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														</select>													
+		                                        	</div>
+											</li>
+											<li>
+												<button class="light-grey-btn" style="height: 24px; line-height: normal;">Export</button>
+											</li>
+										</ul>
+									</div>			
+		                    	</div>
+		                      <div class="table-result table-responsive camp-second-tab-table">
+		                      		<div id="duplicate-campaign" class="modal fade duplicate-row-popup" role="dialog">
+									  <div class="modal-dialog">
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal">&times;</button>
+									        <h4 class="modal-title">Duplicate Campaign</h4>
+									      </div>
+									      <div class="modal-body">
+									      	<form class="form-inline">
+												<div class="form-group">
+													    <label for="email">Number of duplicates</label>
+													    <div class="input-group spinner">								        		
+														    <input type="text" class="form-control" value="42">
+														    <div class="input-group-btn-vertical">
+														      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+														      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+														    </div>
+														 </div>
+												</div>
+											</form>		  	
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="light-grey-btn" data-dismiss="modal">Cancel</button>
+									        <button type="button" class="blue-btn" data-dismiss="modal">Save to Draft</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
+									<table class="table table-bordered table-inverse table-striped table-hover">
+									  <thead class="thead-default">
+									    <tr>
+									      <th><input type="checkbox" name=""></th>
+									      <th></th>
+									      <th>Campaign Name</th>
+									      <th>Delivery <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Results <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Reach <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Cost per Result <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Amount Spent <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Ends <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Frequency <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Impressions <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Unique Link Clicks <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th class="more-plus"><a href="#">+</a></th>
+									    </tr>
+									  </thead>
+									  <tbody>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td class="editable-row">
+									      	<a href="#">demo <span class="edit-row-title"><i class="fa fa-pencil" aria-hidden="true"></i></span></a>
+									      	<div class="row-editing-icons">
+									      			<a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> View Chart</a>
+									      			<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+									      			<a href="#duplicate-campaign" data-toggle="modal"><i class="fa fa-copy" aria-hidden="true"></i> Duplicate</a>
+									      	</div>
+									      </td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Link Click</span></td>	
+									      <td>&#8377; 0.0</td>
+									      <td>Ongoing</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									       <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td><a href="#">demo</a></td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Link Click</span></td>	
+									      <td>&#8377; 0.0</td>
+									      <td>Ongoing</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									       <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td><a href="">demo</a></td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Link Click</span></td>	
+									      <td>&#8377; 0.0</td>
+									      <td>Ongoing</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>										
+									  </tbody>
+									</table>
+	                        </div>
+
+		                    </div>
+
+		                    <div role="tabpanel" class="tab-pane" id="ad-sets">
+		                    	<div class="thress-tabs-table-top-filters">
+		                    		<div class="left-fil1">
+				                    		<div class="btn-and-caret-icon-dropdown">
+				                    			<a href="#" class="create-camp-btn">+ Create Campaign</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="btn-and-caret-icon-dropdown" style="margin-left:10px">
+				                    			<a href="#" class="create-camp-btn"><i class="fa fa-copy"></i> Duplicate</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="btn-and-caret-icon-dropdown" style="margin-left:10px">
+				                    			<a href="#" class="create-camp-btn"><i class="fa fa-pencil"></i> Edit</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="simple-default-icons-group" style="margin-left:10px">	
+												<ul>
+													<li><i class="fa fa-refresh"></i></li>
+													<li><i class="fa fa-trash"></i></li>
+													<li><i class="fa fa-edit"></i></li>
+													<li><i class="fa fa-tag"></i></li>
+												</ul>
+											</div>
+											<div class="single-btn-div" style="margin-left: 10px">
+												<button class="light-grey-btn" style="height: 24px;">Create Rule</button>
+											</div>
+									</div>
+									<div class="right-fil1">
+										<ul>
+											<li>
+													<div class="custom-autocomplete-select">
+		                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="5">
+														  <option data-tokens="ketchup mustard">Columns</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														</select>													
+		                                        	</div>
+											</li>
+											<li>
+													<div class="custom-autocomplete-select">
+		                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="5">
+														  <option data-tokens="ketchup mustard">Breakdown</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														</select>													
+		                                        	</div>
+											</li>
+											<li>
+												<button class="light-grey-btn" style="height: 24px; line-height: normal;">Export</button>
+											</li>
+										</ul>
+									</div>			
+		                    	</div>
+		                    	  <div class="table-result table-responsive ad-sets-third-tab-table">
+		                    	  		<div id="duplicate-adSet" class="modal fade duplicate-row-popup" role="dialog">
+									  <div class="modal-dialog">
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal">&times;</button>
+									        <h4 class="modal-title">Duplicate Ad Set</h4>
+									      </div>
+									      <div class="modal-body">
+									      	<form class="form-inline">
+												<div class="form-group">
+													    <label for="email">Number of duplicates</label>
+													    <div class="input-group spinner">								        		
+														    <input type="text" class="form-control" value="42">
+														    <div class="input-group-btn-vertical">
+														      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+														      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+														    </div>
+														 </div>
+												</div>
+											</form>		  	
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="light-grey-btn" data-dismiss="modal">Cancel</button>
+									        <button type="button" class="blue-btn" data-dismiss="modal">Save to Draft</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
+									<table class="table table-bordered table-inverse table-striped">
+									  <thead class="thead-default">
+									    <tr>
+									      <th><input type="checkbox" name=""></th>
+									      <th></th>
+									      <th>Ad Set Name</th>
+									      <th>Delivery <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Results <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Reach <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Cost per Result <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Budget <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Amount Spent <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Ends <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Schedule <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Frequency <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Impressions <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Unique Link Clicks <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Button Clicks <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th class="more-plus"><a href="#">+</a></th>
+									    </tr>
+									  </thead>
+									  <tbody>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td>
+									      	<a href="#">demo <span class="edit-row-title"><i class="fa fa-pencil" aria-hidden="true"></i></span></a>
+									      	<div class="row-editing-icons">
+									      			<a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> View Chart</a>
+									      			<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+									      			<a href="#duplicate-adSet" data-toggle="modal"><i class="fa fa-copy" aria-hidden="true"></i> Duplicate</a>	
+									      	</div>
+									      </td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Per Link Click</span></td>	
+									      <td>&#8377; 800.00<span>Daily</span></td>
+									      <td>&#8377; 0.00</td>
+									      <td>Ongoing-</td>
+									      <td>Sep 15, 2017 - Ongoing</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>
+									     <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td><a href="">demo</a></td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Per Link Click</span></td>	
+									      <td>800.00<span>Daily</span></td>
+									      <td>0.00</td>
+									      <td>Ongoing-</td>
+									      <td>Sep 15, 2017 - Ongoing</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td><a href="">demo</a></td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Per Link Click</span></td>	
+									      <td>800.00<span>Daily</span></td>
+									      <td>0.00</td>
+									      <td>Ongoing-</td>
+									      <td>Sep 15, 2017 - Ongoing</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>									
+									  </tbody>
+									</table>
+	                        	</div>
+		                    </div>
+
+		                    <div role="tabpanel" class="tab-pane" id="ads">
+		                    	<div class="thress-tabs-table-top-filters">
+		                    		<div class="left-fil1">
+				                    		<div class="btn-and-caret-icon-dropdown">
+				                    			<a href="#" class="create-camp-btn">+ Create Campaign</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="btn-and-caret-icon-dropdown" style="margin-left:10px">
+				                    			<a href="#" class="create-camp-btn"><i class="fa fa-copy"></i> Duplicate</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="btn-and-caret-icon-dropdown" style="margin-left:10px">
+				                    			<a href="#" class="create-camp-btn"><i class="fa fa-pencil"></i> Edit</a>
+				                    			<div class="dropdown caret-icon-dropdown-with-btn">
+												  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+												    <span class="caret"></span>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												    <a class="dropdown-item" href="#">Action</a>
+												    <a class="dropdown-item" href="#">Another action</a>
+												    <a class="dropdown-item" href="#">Something else here</a>
+												  </div>
+												</div>
+											</div>	
+											<div class="simple-default-icons-group" style="margin-left:10px">	
+												<ul>
+													<li><i class="fa fa-refresh"></i></li>
+													<li><i class="fa fa-trash"></i></li>
+													<li><i class="fa fa-edit"></i></li>
+													<li><i class="fa fa-tag"></i></li>
+												</ul>
+											</div>
+											<div class="single-btn-div" style="margin-left: 10px">
+												<button class="light-grey-btn" style="height: 24px;">Create Rule</button>
+											</div>
+									</div>
+									<div class="right-fil1">
+										<ul>
+											<li>
+													<div class="custom-autocomplete-select">
+		                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="5">
+														  <option data-tokens="ketchup mustard">Columns</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														</select>													
+		                                        	</div>
+											</li>
+											<li>
+													<div class="custom-autocomplete-select">
+		                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="5">
+														  <option data-tokens="ketchup mustard">Breakdown</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														  <option data-tokens="ketchup mustard">Lorem Ipsum</option>
+														  <option data-tokens="mustard">Lorem</option>
+														  <option data-tokens="frosting">Dummy text printing</option>
+														</select>													
+		                                        	</div>
+											</li>
+											<li>
+												<button class="light-grey-btn" style="height: 24px; line-height: normal;">Export</button>
+											</li>
+										</ul>
+									</div>			
+		                    	</div>
+		                         <div class="table-result table-responsive ads-fourth-tab-table">
+		                         	<div id="duplicate-ads" class="modal fade duplicate-row-popup" role="dialog">
+									  <div class="modal-dialog">
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal">&times;</button>
+									        <h4 class="modal-title">Duplicate Ads</h4>
+									      </div>
+									      <div class="modal-body">
+									      	<form class="form-inline">
+												<div class="form-group">
+													    <label for="email">Number of duplicates</label>
+													    <div class="input-group spinner">								        		
+														    <input type="text" class="form-control" value="42">
+														    <div class="input-group-btn-vertical">
+														      <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+														      <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+														    </div>
+														 </div>
+												</div>
+											</form>		  	
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="light-grey-btn" data-dismiss="modal">Cancel</button>
+									        <button type="button" class="blue-btn" data-dismiss="modal">Save to Draft</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
+									<table class="table table-bordered table-inverse table-striped">
+									  <thead class="thead-default">
+									    <tr>
+									      <th><input type="checkbox" name=""></th>
+									      <th></th>
+									      <th>Ad Name</th>
+									      <th>Delivery <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Results <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Reach <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Cost per Result <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Amount Spent <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Ends <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Relevance <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Frequency <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Impressions <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Unique Link Clicks <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th>Button Clicks <i class="fa fa-info-circle" aria-hidden="true"></i></th>
+									      <th class="more-plus"><a href="#">+</a></th>
+									    </tr>
+									  </thead>
+									  <tbody>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td>
+									      	<a href="#">demo <span class="edit-row-title"><i class="fa fa-pencil" aria-hidden="true"></i></span></a>
+									      	<div class="row-editing-icons">
+									      			<a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> View Chart</a>
+									      			<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+									      			<a href="#duplicate-ads" data-toggle="modal"><i class="fa fa-copy" aria-hidden="true"></i> Duplicate</a>	
+									      	</div>
+									      </td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Per Link Click</span></td>	
+									      <td>&#8377; 800.00<span>Daily</span></td>
+									      <td>02/15/2016</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td><a href="">demo</a></td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Per Link Click</span></td>	
+									      <td>&#8377; 800.00<span>Daily</span></td>
+									      <td>02/15/2016</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>
+									    <tr>
+									      <td><input type="checkbox" name=""></td>
+									      <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+									      <td><a href="">demo</a></td>
+									      <td>Not Delivering</td>
+									      <td>-<span>Link Click</span></td>
+									      <td>-</td>
+									      <td>-<span>Per Link Click</span></td>	
+									      <td>&#8377; 800.00<span>Daily</span></td>
+									      <td>02/15/2016</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td>-</td>
+									      <td></td>
+									    </tr>								
+									  </tbody>
+									</table>
+	                        	</div>
+
+		                    </div>
+
+		                </div>
+		            </div>
+			    </div>
+			</div>
+			<div class="right-fix-drawer-outr">
+				<div class="right-fix-drawer-inr">
+					<div class="right-fix-drawer">
+							<ul class="drawer-four-icons nav nav-tabs">
+								<li class="drawer-arrow open-drw-arrow"><a href="#">&nbsp;</a></li>
+								<li class="drawer-view-chart open-drw"><a data-toggle="tab" href="#view-tab"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></li>
+								<li class="drawer-edit open-drw"><a data-toggle="tab" href="#edit-tab"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+								<li class="drawer-history open-drw"><a data-toggle="tab" href="#history-tab"><i class="fa fa-clock-o" aria-hidden="true"></i></a></li>
+							</ul>
+							<div class="drawer-data-rightSec">
+								<div class="tab-content first-step-tabs-content">
+								    <div id="view-tab" class="tab-pane fade in active">
+								    	<h1 class="drw-main-heading">Performance Insights for Ad Set: new</h1>
+								    	<div class="righ-drw-first-third-tab-cal">
+								    			<button class="light-grey-btn">This month: Sep 1, 2017 - Sep 21, 2017</button>
+								    	</div>
+							      		<div class="hori-three-tabs tabbable-panel">							      			
+											<div class="tabbable-line">
+												<ul class="nav nav-tabs outr-tabs">
+													<li class="active">
+														<a href="#tab_default_1" data-toggle="tab">
+															<i class="fa fa-bar-chart" aria-hidden="true"></i> Performance 
+														</a>
+														<span class="arrow"></span>
+													</li>
+													<li>
+														<a href="#tab_default_2" data-toggle="tab">
+															<i class="fa fa-users" aria-hidden="true"></i> Demographics 
+														</a>
+														<span class="arrow"></span>
+													</li>
+													<li>
+														<a href="#tab_default_3" data-toggle="tab">
+															<i class="fa fa-copy" aria-hidden="true"></i> Placement
+														</a>
+														<span class="arrow"></span>
+													</li>
+												</ul>
+												<div class="tab-content three">
+													<div class="tab-pane active performance" id="tab_default_1">
+															<ul class="nav nav-pills nav-stacked col-md-3">
+															  <li class="active"><a href="#links" data-toggle="pill">Results: Link Clicks</a></li>
+															  <li><a href="#people" data-toggle="pill"><b>0</b><br>People Reached</a></li>
+															  <li><a href="#amount" data-toggle="pill"><b>&#8377; 0.00</b><br>Amount Spent</a></li>
+															  <li><a href="#custom" data-toggle="pill"><b>Custom</b></a></li>
+															</ul>
+															<div class="tab-content col-md-9">
+															        <div class="tab-pane active" id="links">
+															            <div class="no-result-found">
+						                                        			<img src="../img/no-result-img.jpg"><br>	
+						                                        			<b>No Activity During Date Range</b><br>
+						                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+						                                        		</div>
+															        </div>
+															        <div class="tab-pane" id="people">
+															            <div class="no-result-found">
+						                                        			<img src="../img/no-result-img.jpg"><br>	
+						                                        			<b>No Activity During Date Range</b><br>
+						                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+						                                        		</div>
+															        </div>
+															        <div class="tab-pane" id="amount">
+															             <div class="no-result-found">
+						                                        			<img src="../img/no-result-img.jpg"><br>	
+						                                        			<b>No Activity During Date Range</b><br>
+						                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+						                                        		</div>
+															        </div>
+															        <div class="tab-pane" id="custom">
+															            <div class="no-result-found">
+						                                        			<img src="../img/no-result-img.jpg"><br>	
+						                                        			<b>No Activity During Date Range</b><br>
+						                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+						                                        		</div>
+															        </div>
+															</div> 
+
+
+													</div>
+													<div class="tab-pane demographics" id="tab_default_2">
+														<div class="no-result-found">
+		                                        			<img src="../img/no-result-img.jpg"><br>	
+		                                        			<b>No Activity During Date Range</b><br>
+		                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+		                                        		</div>
+													</div>
+													<div class="tab-pane placement" id="tab_default_3">
+														<div class="no-result-found">
+		                                        			<img src="../img/no-result-img.jpg"><br>	
+		                                        			<b>No Activity During Date Range</b><br>
+		                                        			<button class="light-grey-btn" style="margin-top: 15px;">Change Date</button>
+		                                        		</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								    </div>
+								    <div id="edit-tab" class="tab-pane fade">
+								      <h1 class="drw-main-heading">Editing Campaign: demo</h1>
+								      	<div class="edit-camp-form-outr">
+										      <div class="edit-camp-form">
+										      		<div class="col-md-7 col-ms-8">
+									      				<div class="edit-camp-left-blocks">
+									      					<div class="form-white-block" style="padding: 15px;">
+									      							<label>Ad Set Name</label>
+									      							<input type="text" name="" class="form-control">
+									      							<a href="#">Rename usign available fields</a>
+									      					</div>
+									      					<div class="form-white-block">
+									      						<h5 class="white-block-legend">Traffic</h5>
+									      						<div class="white-block-body">
+									      							<label class="light-grey-label">Choose where you want to drive traffic. You'll enter more details about the destination later.</label>
+								      								<div class="radio">
+																	  <label><input type="radio" name="optradio">Website</label>
+																	</div>
+																	<div class="radio">
+																	  <label><input type="radio" name="optradio">App</label>
+																	</div>
+																	<div class="radio">
+																	  <label><input type="radio" name="optradio">Messenger</label>
+																	</div>
+									      						</div>
+									      					</div>
+									      					<div class="form-white-block">
+									      						<h5 class="white-block-legend">Budget & Schedule</h5>
+									      						<div class="white-block-body">
+									      								<form>
+									      									<div class="row">
+									      										<div class="col-md-5"><label>Daily Budget</label></div>
+									      										<div class="col-md-6">
+									      											<input type="text" name="" value="800.00" style=" margin-right: 10px;width:100px;">
+									      											<button class="light-grey-btn">Adjust Budget</button>
+									      										</div>
+									      									</div>
+									      									<div class="row">
+									      										<div class="col-md-5"><label>Schedule Start</label></div>
+									      										<div class="col-md-6">
+									      											<p>Friday, Sep 15, 2017 4:29pm</p>
+									      										</div>
+									      									</div>
+									      									<div class="row">
+									      										<div class="col-md-5"><label>Schedule Start</label></div>
+									      										<div class="col-md-6">
+									      											<p>Friday, Sep 15, 2017 4:29pm</p>
+									      										</div>
+									      									</div>
+									      									<div class="row">
+									      											<div class="col-md-5"><label>Schedule End</label></div>
+									      											<div class="col-md-7">
+									      												<div class="radio margin-top-zero">
+																						  <label><input type="radio" name="optradio">Website</label><br>
+																						  <label><input type="radio" name="optradio">Website</label>
+																						</div>
+									      											</div>							      											
+									      									</div>
+									      								</form>
+									      						</div>
+									      					</div>	
+									      					<div class="form-white-block">
+									      						<h5 class="white-block-legend">Audience</h5>
+									      						<div class="white-block-body">
+									      								<form>
+									      									<div class="row">
+									      										<div class="col-md-5"><label>Custom Audiences <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									      										<div class="col-md-6">
+									      											<input type="text" name="" value="800.00"><br>
+									      											<a href="#">Exclude</a> | <a href="#">Create New</a>
+									      										</div>
+									      									</div>
+									      									<div class="row">
+									      										<div class="col-md-5"><label>Location <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									      										<div class="col-md-6">
+									      											<textarea></textarea>
+									      										</div>
+									      									</div>
+									      									<div class="row">
+									      										<div class="col-md-5"><label>Age <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									      										<div class="col-md-6">
+									      											<input type="text" name="" style="width: 50px;">
+									      										</div>
+									      									</div>
+									      								</form>
+									      						</div>
+									      					</div>
+
+									      					<div class="form-white-block">
+									      						<h5 class="white-block-legend">Placement</h5>
+									      						<div class="white-block-body">
+									      							<div class="radio">
+																	 	 <label><input type="radio" name="optradio">Automatic Placements (Recommended)</label>
+																	 	 <p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+																	</div> 
+																	<div class="radio">
+																	 	 <label><input type="radio" name="optradio">Edit Placements (Recommended)</label>
+																	 	 <p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+																	</div> 
+									      						</div>
+									      					</div>
+
+									      				</div>
+										      		</div>
+										      		<div class="col-md-5 col-sm-5">
+										      				<div class="edit-camp-right-blocks">
+										      					<div class="form-white-block">
+										      						<h5 class="white-block-legend">Audience Definition</h5>
+										      						<div class="white-block-body">
+										      							 <img src="../img/audience.jpg"> <p>Your audience selection is fairly broad</p> 
+																		 
+										      						</div>
+									      						</div>
+									      						<div class="form-white-block">
+									      						<h5 class="white-block-legend">Placement</h5>
+									      						<div class="white-block-body">
+									      							<div class="radio">
+																	 	 <label><input type="radio" name="optradio">Automatic Placements (Recommended)</label>
+																	 	 <p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+																	</div> 
+																	<div class="radio">
+																	 	 <label><input type="radio" name="optradio">Edit Placements (Recommended)</label>
+																	 	 <p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+																	</div> 
+									      						</div>
+									      					</div>
+										      				</div>
+										      				
+										      		</div>
+										      </div>
+										</div> 
+										<div class="save-editing-fix-bar">	
+												<span>1 item to review</span>     
+												<button class="light-grey-btn">Close</button>
+												<button class="blue-btn">Review Draft Items</button>
+										</div>
+								    </div>
+								    <div id="history-tab" class="tab-pane fade">
+								    	<h1 class="drw-main-heading">Activity History for Ad Set: new</h1>	
+								     	<div class="righ-drw-first-third-tab-cal">
+								    			<button class="light-grey-btn">This month: Sep 1, 2017 - Sep 21, 2017</button>
+								    	</div>
+								    	<div class="history-table">
+								    		<div class="history-filtering">
+								    			<div class="custom-autocomplete-select">
+	                                        		<select class="selectpicker show-tick" data-live-search="true" data-size="3">
+													  <option data-tokens="ketchup mustard">Columns</option>
+													  <option data-tokens="mustard">Lorem</option>
+													  <option data-tokens="frosting">Dummy text printing</option>
+													</select>	
+													<select class="selectpicker show-tick" data-live-search="true" data-size="3">
+													  <option data-tokens="ketchup mustard">Columns</option>
+													  <option data-tokens="mustard">Lorem</option>
+													  <option data-tokens="frosting">Dummy text printing</option>
+													</select>													
+	                                        	</div>
+	                                        </div>	
+							    			<table class="table table-bordered table-inverse table-striped table-hover">
+												  <thead class="thead-default">
+												    <tr>													       
+												      <th>Activity</th>
+												      <th>Activity Details</th>
+												      <th>Item Changed</th>
+												      <th>Name</th>
+												      <th>Date and Time</th>													     
+												    </tr>
+												  </thead>
+												  <tbody>
+												    <tr>
+												      <td>Ad set targeting updated...</td>
+												      <td>&#8377; 800.00 Per day</td>
+												      <td class="editable-row">new</td>
+												      <td>John Clarke</td>
+												      <td>09/15/2017 at 4:29pm</td>													       
+												    </tr>
+												    <tr>
+												      <td>Ad set targeting updated...</td>
+												      <td>&#8377; 800.00 Per day</td>
+												      <td class="editable-row">new</td>
+												      <td>John Clarke</td>
+												      <td>09/15/2017 at 4:29pm</td>	
+												    </tr>
+												    <tr>
+												      <td>Ad set targeting updated...</td>
+												      <td>&#8377; 800.00 Per day</td>
+												      <td class="editable-row">new</td>
+												      <td>John Clarke</td>
+												      <td>09/15/2017 at 4:29pm</td>	
+												    </tr>										
+												  </tbody>
+											</table>
+											<div class="no-more-his-result">
+													No more activities to show
+											</div>
+								    	</div>
+								    </div>									   
+								  </div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>				
+</div>
+</body>
+</html>

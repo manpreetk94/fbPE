@@ -1,0 +1,710 @@
+<div class="edit-camp-form" style="display: none;" id="adsets-full-details">
+	<div class="adsets-details-list" id="" >
+		<div class="col-md-7 col-ms-8">
+			<div class="edit-camp-left-blocks">
+				<div class="form-white-block" style="padding: 15px;" id="<?php echo $adset['id'];?>">
+					<label>Ad Set Name</label>
+					<input type="text" name="" class="form-control inline_name_edit_tab" id="adset_name">
+					<a href="#">Rename usign available fields</a>
+				</div>
+				<div class="form-white-block">
+					<h5 class="white-block-legend">Traffic</h5>
+					<div class="white-block-body">
+						<label class="light-grey-label">Choose where you want to drive traffic. You'll enter more details about the destination later.</label>
+						<div class="radio">
+							<label><input type="radio" name="traffic" id="adset-web" value="WEBSITE">Website</label>
+						</div>
+						<div class="radio">
+							<label><input type="radio" name="traffic" id="adset-app" value="APP">App</label>
+						</div>
+						<div class="radio">
+							<label><input type="radio" name="traffic" id="adset-messenger" value="MESSENGER">Messenger</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-white-block">
+					<h5 class="white-block-legend">Budget & Schedule</h5>
+					<div class="white-block-body">
+						<!-- <form> -->
+							<div class="row">
+								<div class="col-md-5"><label>Daily Budget</label></div>
+								<div class="col-md-6">
+									<input type="text" name="daily_budget" value="" style=" margin-right: 10px;width:100px;" id="addsets_daily_bugdet">
+									<!-- <button class="light-grey-btn" data-toggle="modal" data-target="#adjust_button" id="adjust_budget_popup">Adjust Budget</button> -->
+									<button class="light-grey-btn"  id="adjust_budget_popup" >Adjust Budget</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5"><label>Schedule Start</label></div>
+								<div class="col-md-6">
+									<p class="addsets_start_time"><?php echo date_format(date_create($adset['start_time']), 'l, F d, Y h:i a');?></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5"><label>Schedule End</label></div>
+								<div class="col-md-7">
+									<div class="radio margin-top-zero">
+										<label><input type="radio" name="optradio" class="not_schedule_adset">Don't schedule end date, run as ongoing</label><br>
+										<label><input type="radio" name="optradio" class="schedule_adset">End run on:</label>
+										<div class="input-group schedule_fields">
+											<input type="text" class="form-control" value="" placeholder="" id="schedule_date" name="schedule_date">
+											<input type="text" class="form-control" value="" placeholder="" id="schedule_time" name="schedule_time">
+										</div>
+
+									</div>
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-md-5"><label>Ad Scheduling</label></div>
+								<div class="col-md-7">
+									<div class="radio margin-top-zero">
+										<label><input type="radio" name="optradio">Run ads all the time</label><br>
+										<label><input type="radio" name="optradio">Run ads on a schedule</label>
+									</div>
+								</div>							      											
+							</div>
+							<!-- </form> -->
+						</div>
+					</div>	
+					<div class="form-white-block">
+						<h5 class="white-block-legend">Audience</h5>
+
+						<div class="row" style="margin-top:5px;">
+								<div class="col-md-5"><label> SAVED AUDIENCE <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+								<div class="col-md-6" id="apd_saved_audience">		
+								<select class="selectpicker show-tick" data-size="3" id="saved_aud" name="saved_aud">				<option  value="" class="">New Audience</option>
+								</select>							
+								</div>
+						</div>
+
+						<div class="white-block-body saved_aud_detail">
+
+						</div>
+
+						
+						<div class="white-block-body custom_audience">
+								<form id="audience_form" method="post">
+								<div class="row">
+									<div class="col-md-5"><label>Custom Audiences <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-6">
+										<input type="text" name="" value="" class="form-control"><br>
+										<a href="#">Exclude</a> | <a href="#">Create New</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5"><label>Location <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-6" id="pac-container">
+										<!-- <textarea class="form-control" id="txtPlaces"  ></textarea> -->
+										<!-- <input type="text" name="location" value="" class="form-control" id="txtPlaces"   style="width: 250px"> -->
+										<select class="selectpicker geo_country" data-show-subtext="true" data-live-search="true" multiple name="location[]">
+										 <option data-subtext="" Value=""></option>
+											<option value="AF">Afghanistan</option>
+	<option value="AX">Åland Islands</option>
+	<option value="AL">Albania</option>
+	<option value="DZ">Algeria</option>
+	<option value="AS">American Samoa</option>
+	<option value="AD">Andorra</option>
+	<option value="AO">Angola</option>
+	<option value="AI">Anguilla</option>
+	<option value="AQ">Antarctica</option>
+	<option value="AG">Antigua and Barbuda</option>
+	<option value="AR">Argentina</option>
+	<option value="AM">Armenia</option>
+	<option value="AW">Aruba</option>
+	<option value="AU">Australia</option>
+	<option value="AT">Austria</option>
+	<option value="AZ">Azerbaijan</option>
+	<option value="BS">Bahamas</option>
+	<option value="BH">Bahrain</option>
+	<option value="BD">Bangladesh</option>
+	<option value="BB">Barbados</option>
+	<option value="BY">Belarus</option>
+	<option value="BE">Belgium</option>
+	<option value="BZ">Belize</option>
+	<option value="BJ">Benin</option>
+	<option value="BM">Bermuda</option>
+	<option value="BT">Bhutan</option>
+	<option value="BO">Bolivia, Plurinational State of</option>
+	<option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+	<option value="BA">Bosnia and Herzegovina</option>
+	<option value="BW">Botswana</option>
+	<option value="BV">Bouvet Island</option>
+	<option value="BR">Brazil</option>
+	<option value="IO">British Indian Ocean Territory</option>
+	<option value="BN">Brunei Darussalam</option>
+	<option value="BG">Bulgaria</option>
+	<option value="BF">Burkina Faso</option>
+	<option value="BI">Burundi</option>
+	<option value="KH">Cambodia</option>
+	<option value="CM">Cameroon</option>
+	<option value="CA">Canada</option>
+	<option value="CV">Cape Verde</option>
+	<option value="KY">Cayman Islands</option>
+	<option value="CF">Central African Republic</option>
+	<option value="TD">Chad</option>
+	<option value="CL">Chile</option>
+	<option value="CN">China</option>
+	<option value="CX">Christmas Island</option>
+	<option value="CC">Cocos (Keeling) Islands</option>
+	<option value="CO">Colombia</option>
+	<option value="KM">Comoros</option>
+	<option value="CG">Congo</option>
+	<option value="CD">Congo, the Democratic Republic of the</option>
+	<option value="CK">Cook Islands</option>
+	<option value="CR">Costa Rica</option>
+	<option value="CI">Côte d'Ivoire</option>
+	<option value="HR">Croatia</option>
+	<option value="CU">Cuba</option>
+	<option value="CW">Curaçao</option>
+	<option value="CY">Cyprus</option>
+	<option value="CZ">Czech Republic</option>
+	<option value="DK">Denmark</option>
+	<option value="DJ">Djibouti</option>
+	<option value="DM">Dominica</option>
+	<option value="DO">Dominican Republic</option>
+	<option value="EC">Ecuador</option>
+	<option value="EG">Egypt</option>
+	<option value="SV">El Salvador</option>
+	<option value="GQ">Equatorial Guinea</option>
+	<option value="ER">Eritrea</option>
+	<option value="EE">Estonia</option>
+	<option value="ET">Ethiopia</option>
+	<option value="FK">Falkland Islands (Malvinas)</option>
+	<option value="FO">Faroe Islands</option>
+	<option value="FJ">Fiji</option>
+	<option value="FI">Finland</option>
+	<option value="FR">France</option>
+	<option value="GF">French Guiana</option>
+	<option value="PF">French Polynesia</option>
+	<option value="TF">French Southern Territories</option>
+	<option value="GA">Gabon</option>
+	<option value="GM">Gambia</option>
+	<option value="GE">Georgia</option>
+	<option value="DE">Germany</option>
+	<option value="GH">Ghana</option>
+	<option value="GI">Gibraltar</option>
+	<option value="GR">Greece</option>
+	<option value="GL">Greenland</option>
+	<option value="GD">Grenada</option>
+	<option value="GP">Guadeloupe</option>
+	<option value="GU">Guam</option>
+	<option value="GT">Guatemala</option>
+	<option value="GG">Guernsey</option>
+	<option value="GN">Guinea</option>
+	<option value="GW">Guinea-Bissau</option>
+	<option value="GY">Guyana</option>
+	<option value="HT">Haiti</option>
+	<option value="HM">Heard Island and McDonald Islands</option>
+	<option value="VA">Holy See (Vatican City State)</option>
+	<option value="HN">Honduras</option>
+	<option value="HK">Hong Kong</option>
+	<option value="HU">Hungary</option>
+	<option value="IS">Iceland</option>
+	<option value="IN">India</option>
+	<option value="ID">Indonesia</option>
+	<option value="IR">Iran, Islamic Republic of</option>
+	<option value="IQ">Iraq</option>
+	<option value="IE">Ireland</option>
+	<option value="IM">Isle of Man</option>
+	<option value="IL">Israel</option>
+	<option value="IT">Italy</option>
+	<option value="JM">Jamaica</option>
+	<option value="JP">Japan</option>
+	<option value="JE">Jersey</option>
+	<option value="JO">Jordan</option>
+	<option value="KZ">Kazakhstan</option>
+	<option value="KE">Kenya</option>
+	<option value="KI">Kiribati</option>
+	<option value="KP">Korea, Democratic People's Republic of</option>
+	<option value="KR">Korea, Republic of</option>
+	<option value="KW">Kuwait</option>
+	<option value="KG">Kyrgyzstan</option>
+	<option value="LA">Lao People's Democratic Republic</option>
+	<option value="LV">Latvia</option>
+	<option value="LB">Lebanon</option>
+	<option value="LS">Lesotho</option>
+	<option value="LR">Liberia</option>
+	<option value="LY">Libya</option>
+	<option value="LI">Liechtenstein</option>
+	<option value="LT">Lithuania</option>
+	<option value="LU">Luxembourg</option>
+	<option value="MO">Macao</option>
+	<option value="MK">Macedonia, the former Yugoslav Republic of</option>
+	<option value="MG">Madagascar</option>
+	<option value="MW">Malawi</option>
+	<option value="MY">Malaysia</option>
+	<option value="MV">Maldives</option>
+	<option value="ML">Mali</option>
+	<option value="MT">Malta</option>
+	<option value="MH">Marshall Islands</option>
+	<option value="MQ">Martinique</option>
+	<option value="MR">Mauritania</option>
+	<option value="MU">Mauritius</option>
+	<option value="YT">Mayotte</option>
+	<option value="MX">Mexico</option>
+	<option value="FM">Micronesia, Federated States of</option>
+	<option value="MD">Moldova, Republic of</option>
+	<option value="MC">Monaco</option>
+	<option value="MN">Mongolia</option>
+	<option value="ME">Montenegro</option>
+	<option value="MS">Montserrat</option>
+	<option value="MA">Morocco</option>
+	<option value="MZ">Mozambique</option>
+	<option value="MM">Myanmar</option>
+	<option value="NA">Namibia</option>
+	<option value="NR">Nauru</option>
+	<option value="NP">Nepal</option>
+	<option value="NL">Netherlands</option>
+	<option value="NC">New Caledonia</option>
+	<option value="NZ">New Zealand</option>
+	<option value="NI">Nicaragua</option>
+	<option value="NE">Niger</option>
+	<option value="NG">Nigeria</option>
+	<option value="NU">Niue</option>
+	<option value="NF">Norfolk Island</option>
+	<option value="MP">Northern Mariana Islands</option>
+	<option value="NO">Norway</option>
+	<option value="OM">Oman</option>
+	<option value="PK">Pakistan</option>
+	<option value="PW">Palau</option>
+	<option value="PS">Palestinian Territory, Occupied</option>
+	<option value="PA">Panama</option>
+	<option value="PG">Papua New Guinea</option>
+	<option value="PY">Paraguay</option>
+	<option value="PE">Peru</option>
+	<option value="PH">Philippines</option>
+	<option value="PN">Pitcairn</option>
+	<option value="PL">Poland</option>
+	<option value="PT">Portugal</option>
+	<option value="PR">Puerto Rico</option>
+	<option value="QA">Qatar</option>
+	<option value="RE">Réunion</option>
+	<option value="RO">Romania</option>
+	<option value="RU">Russian Federation</option>
+	<option value="RW">Rwanda</option>
+	<option value="BL">Saint Barthélemy</option>
+	<option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+	<option value="KN">Saint Kitts and Nevis</option>
+	<option value="LC">Saint Lucia</option>
+	<option value="MF">Saint Martin (French part)</option>
+	<option value="PM">Saint Pierre and Miquelon</option>
+	<option value="VC">Saint Vincent and the Grenadines</option>
+	<option value="WS">Samoa</option>
+	<option value="SM">San Marino</option>
+	<option value="ST">Sao Tome and Principe</option>
+	<option value="SA">Saudi Arabia</option>
+	<option value="SN">Senegal</option>
+	<option value="RS">Serbia</option>
+	<option value="SC">Seychelles</option>
+	<option value="SL">Sierra Leone</option>
+	<option value="SG">Singapore</option>
+	<option value="SX">Sint Maarten (Dutch part)</option>
+	<option value="SK">Slovakia</option>
+	<option value="SI">Slovenia</option>
+	<option value="SB">Solomon Islands</option>
+	<option value="SO">Somalia</option>
+	<option value="ZA">South Africa</option>
+	<option value="GS">South Georgia and the South Sandwich Islands</option>
+	<option value="SS">South Sudan</option>
+	<option value="ES">Spain</option>
+	<option value="LK">Sri Lanka</option>
+	<option value="SD">Sudan</option>
+	<option value="SR">Suriname</option>
+	<option value="SJ">Svalbard and Jan Mayen</option>
+	<option value="SZ">Swaziland</option>
+	<option value="SE">Sweden</option>
+	<option value="CH">Switzerland</option>
+	<option value="SY">Syrian Arab Republic</option>
+	<option value="TW">Taiwan, Province of China</option>
+	<option value="TJ">Tajikistan</option>
+	<option value="TZ">Tanzania, United Republic of</option>
+	<option value="TH">Thailand</option>
+	<option value="TL">Timor-Leste</option>
+	<option value="TG">Togo</option>
+	<option value="TK">Tokelau</option>
+	<option value="TO">Tonga</option>
+	<option value="TT">Trinidad and Tobago</option>
+	<option value="TN">Tunisia</option>
+	<option value="TR">Turkey</option>
+	<option value="TM">Turkmenistan</option>
+	<option value="TC">Turks and Caicos Islands</option>
+	<option value="TV">Tuvalu</option>
+	<option value="UG">Uganda</option>
+	<option value="UA">Ukraine</option>
+	<option value="AE">United Arab Emirates</option>
+	<option value="GB">United Kingdom</option>
+	<option value="US">United States</option>
+	<option value="UM">United States Minor Outlying Islands</option>
+	<option value="UY">Uruguay</option>
+	<option value="UZ">Uzbekistan</option>
+	<option value="VU">Vanuatu</option>
+	<option value="VE">Venezuela, Bolivarian Republic of</option>
+	<option value="VN">Viet Nam</option>
+	<option value="VG">Virgin Islands, British</option>
+	<option value="VI">Virgin Islands, U.S.</option>
+	<option value="WF">Wallis and Futuna</option>
+	<option value="EH">Western Sahara</option>
+	<option value="YE">Yemen</option>
+	<option value="ZM">Zambia</option>
+	<option value="ZW">Zimbabwe</option>
+										</select>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5"><label>Age <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-6">
+										<div class="custom-autocomplete-select">
+											<select class="selectpicker show-tick " data-size="3" id="addsets_min_age1" name="addsets_min_age">
+												<?php for($j=13;$j<=65;$j++):?>
+													<option  value="<?php echo $j; ?>" class="addsets_min_age1"><?php echo $j;?></option>
+												<?php endfor;?>
+												
+											</select>	
+											<select class="selectpicker show-tick" data-size="3" name="addsets_max_age" id="addsets_max_age1">
+												<?php for($j=13;$j<=65;$j++):?>
+													<option data-tokens="ketchup mustard" value="<?php echo $j;?>"><?php echo $j;?></option>
+												<?php endfor;?>
+												
+											</select>													
+										</div>
+									</div>
+								</div>
+								<div class="row gender">
+									<div class="col-md-5"><label style="border: 0">Gender <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-6 r">
+										<div class="all-gen target_gender" rel="All">
+											<input type="radio" name="target_gender" id="All" class="radio"  value="0" />
+											<label for="radio1">All</label>
+										</div>
+
+										<div class="male-gen target_gender" rel="Men">
+											<input type="radio" name="target_gender" id="Men" class="radio"  value="1" />
+											<label for="radio2">Men</label>
+										</div>
+
+										<div class="female-gen target_gender" rel="Women">	
+											<input type="radio" name="target_gender" id="Women" class="radio" value="2" />
+											<label for="radio3">Women</label>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5"><label>Languages <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-6">
+										<input type="text" name="adset_language" placeholder="Enter a language" class="form-control" id="target_language"> 
+									</div>
+								</div>
+								<div class="row"><hr class="edit-forms-divider">&nbsp;</hr></div>
+								<div class="row">
+									<div class="col-md-5"><label>Detailed Targeting <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-7">
+										<div class="radio margin-top-zero">
+											<label style="padding: 0">INCLUDE people who match at least ONE of the following <i class="fa fa-info-circle" aria-hidden="true"></i></label><br>
+											<select class="form-control">
+												<option>Option1</option>
+											</select>
+										</div>
+									</div>	
+								</div>
+								<div class="row"><hr class="edit-forms-divider">&nbsp;</hr></div>
+								<div class="row">
+									<div class="col-md-5"><label>Connections <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-7">
+										<div class="radio margin-top-zero">
+											<div class="custom-autocomplete-select">
+												<select class="selectpicker show-tick" data-size="3">
+													<option data-tokens="ketchup mustard">Apps</option>
+													
+												</select>			 											
+											</div>
+										</div>
+									</div>	
+								</div>
+								<div class="row" style="margin: 0"><hr class="edit-forms-divider" style="margin: 0">
+								&nbsp;</hr></div>
+								<div class="row">
+									<div class="col-md-5">&nbsp;</div>
+									<div class="col-md-7">
+										<button type="button" class="light-grey-btn submit_audience" >Save This Audience</button>
+									</div>
+								</div>
+								<input type="hidden" name="new_aud_name" value="" class="new_audd_name">
+								<input type="hidden" name="act" value="<?php echo $_GET['act']; ?>">
+								<input type="hidden" name="access_token" value="<?php echo $_GET['code']; ?>" >
+								<input type="hidden" name="adset_id" value=""  id="adset_id_forAudi">
+
+							</form>
+						</div>
+					</div>
+
+
+					<div id="save-aud" class="modal fade duplicate-row-popup" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Save Audience</h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-inline">
+										<div class="row">
+											<div class="col-md-4"><label for="email">Audience Name</label></div>
+											<div class="col-md-6">
+												<div class="input-group">
+													<input type="name" class="form-control new_aud_name" value="">
+												</div>
+												<span class="apd_saved_aud_data">
+												</span>
+												
+											</div>	
+										</div>
+									</form>		  	
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="light-grey-btn" data-dismiss="modal">Cancel</button>
+									<button type="button" class="blue-btn" id="save_new_audience">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-white-block">
+						<h5 class="white-block-legend">Placement</h5>
+						<div class="white-block-body">
+							<div class="radio">
+								<label><input type="radio" name="optradio">Automatic Placements (Recommended)</label>
+								<p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+							</div> 
+							<div class="radio">
+								<label><input type="radio" name="optradio">Edit Placements (Recommended)</label>
+								<p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+							</div> 
+						</div>
+					</div>
+					<div class="form-white-block">
+						<h5 class="white-block-legend">Optimization & Delivery</h5>
+						<div class="white-block-body">
+							<!-- <form> -->
+								<div class="row">
+									<div class="col-md-5"><label>Optimization for Ad Delivery <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-6">
+										
+											<select class="selectpicker show-tick" data-size="3" name="optimization_goal" id="optimization_goal">
+												<option value="LINK_CLICK">Link Clicks - Recommended</option>
+												<option value="LANDING_PAGE_VIEWS">Landing Page Views </option>
+												<option value="IMPRESSIONS"> Impressions </option>
+												<option value="OFFSITE_CONVERSIONS">Offsite Conversion </option>
+												<option value="REACH">Daily Unique Reach</option>
+												<option value="PAGE_LIKES">Page Likes</option>
+												<option value="PAGE_ENGAGEMENT">Page Engagement</option>
+												<option value="POST_ENGAGEMENT"> Post Engagement </option>
+											</select>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-5"><label>Bid Amount <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-7">
+										<div class="radio margin-top-zero">
+											<label><input type="radio" name="is_auto_bid" id="is_auto_bid" class="is_auto_bid">Automatic - Let Facebook set the bid that helps you get the most impressions at the best price.</label><br>
+											<label><input type="radio" name="is_auto_bid" id="manual_bid" class="is_auto_bid">Manual - Enter a bid based on what 1,000 impressions are worth to you.</label>
+										</div>
+										<div class="input-group">
+											<input type="text" class="form-control" value="" placeholder="Bid Value" id="bid_amount" name="BID_AMOUNT">
+										</div>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="col-md-5"><label>When You Get Charged <i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-7">
+										<div class="radio margin-top-zero">
+										
+											<label><input type="radio" name="billing_evt" id="is_impression" value="IMPRESSIONS">Impression</label><br>
+											<label><input type="radio" name="billing_evt" id="is_linkclick" value="LINK_CLICKS">Link Click  (CPC)</label>
+
+										</div>
+									</div>							      											
+								</div>
+								<div class="row">
+									<div class="col-md-5"><label>Delivery Type<i class="fa fa-info-circle" aria-hidden="true"></i></label></div>
+									<div class="col-md-7">
+										<div class="radio margin-top-zero">
+										
+											<label><input type="radio" name="del_type" id="stard_adset" value="standard">Standard - Show your ads throughout your selected schedule (recommended).</label><br>
+											<label><input type="radio" name="del_type" id="acc_addset" value="no_pacing">Accelerated - Show your ads as quickly as possible.</label>
+
+
+										</div>
+									</div>							      											
+								</div>
+								<!-- </form> -->
+							</div>
+						</div>	
+
+					</div>
+				</div>
+				<div class="col-md-5 col-sm-5">
+					<div class="form-white-block" style="margin-top:20px;">
+						<div class="row main-heading">
+							<div class="col-md-9 padding10"><h5 class="white-block-legend"><b>Ad Set id:<span id="adset_id"></span></b></h5><input type="checkbox" id="adset_status" value="<?php echo $adset['id'];?>" data-toggle="toggle" data-size="mini"> </div>
+							<div class="col-md-3 padding10">
+								<div class="btn-and-caret-icon-dropdown" style="margin-top: 6px;">
+									<a href="#" class="create-camp-btn">Link</a>
+									<div class="dropdown caret-icon-dropdown-with-btn">
+										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+											<span class="caret"></span>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#">Action</a>
+											<a class="dropdown-item" href="#">Another action</a>
+											<a class="dropdown-item" href="#">Something else here</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="white-block-body">
+							<p>
+								<a href="#"><span class="camp_total_camps">1</span> Campaigns</a><br>
+								<span>Targeting, placement, budget and schedule</span>
+							</p>
+							<p>
+								<a href="#"><span class="camp_total_ads">1</span> Ad</a><br>
+								<span>Images, videos, text and links</span>
+							</p>
+							<hr>
+							<p><b>Rule</b></p>
+							<div class="btn-and-caret-icon-dropdown" style="margin-top: 6px;">
+								<a href="#" class="create-camp-btn">Create Rule</a>
+								<div class="dropdown caret-icon-dropdown-with-btn">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left:0">
+										<span class="caret"></span>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#create-rule-btn">Create Rule</a>
+										<a class="dropdown-item feedback_modal1"  data-toggle="modal" href="#give_feedback" >Give Feedback</a>									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="edit-camp-right-blocks">
+						<div class="form-white-block">
+							<h5 class="white-block-legend">Audience Definition</h5>
+							<div class="white-block-body">
+								<img src="img/audience.jpg"> <p>Your audience selection is fairly broad</p> 
+
+							</div>
+						</div>
+						<div class="form-white-block">
+							<h5 class="white-block-legend">Estimated Daily Results</h5>
+							<div class="white-block-body">
+								<div class="col-md-12" style="padding-left: 0"><b>Reach</b> 33,000 - 210,000 (of 110,000,000)<br>
+								<img src="img/reach-img.jpg">
+								</div>
+								<div class="radio">
+									<p>Your ads will automatically be shown to your audience in the places they're likely to perform best. For this objective, placements may include Facebook, Instagram, Audience Network and Messenger.</p>
+								</div> 
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+<!-- modal -->
+<div id="give_feedback" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">We'd Like to Hear From You</h4>
+            </div>
+            <form method="post" id="feedback_form">
+	            <div class="modal-body">
+	               	<div class="row">
+	                    <div class="col-md-12">
+	                        <label class="col-md-12">
+	                            What has been your experience using Automated Rules?
+	                        </label>
+	                        <div class="col-md-12">                       
+	                        	<textarea  name="experience_about_rule" placeholder="" class="form-control experience_about_rule" rows="5" ></textarea>
+	                        </div>
+	                    </div>
+	                </div>
+	                 	<div class="row">
+	                    <div class="col-md-12">
+	                        <label class="col-md-12">
+	                        What do you wish you could do with Automated Rules in the future?
+	                        </label>
+	                        <div class="col-md-12">                       
+	                        	<textarea  name="future_done" placeholder="Rule Name" class="form-control future_done" rows="5"  ></textarea>
+	                        </div>
+	                    </div>
+	                </div>
+				</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                <button type="button" class="btn btn-info feedback_submit" >Save</button>
+	            </div>
+	        </form>
+        </div>
+    </div>
+</div>
+
+
+<!--delete camapigns -->
+<div id="add_feebacks" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <form method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Feedback</h4>
+            </div>
+            <div class="modal-body">
+              
+                <p class="feedback_msg">Feedback has been submitted successfully. </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+       <!--          <button type="submit" class="btn btn-primary" name="delete_campaigns">Delete</button> -->
+            </div>
+        </form>
+    </div>
+
+  </div>
+</div>
+<!--delete camapigns -->
+
+<!--ajx msg -->
+<div id="api_request_adset" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <form method="post">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">AdSet</h4>
+            </div>
+            <div class="modal-body">
+              
+                <p class="api_request_adset_msg"> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+       <!--          <button type="submit" class="btn btn-primary" name="delete_campaigns">Delete</button> -->
+            </div>
+        </form>
+    </div>
+
+  </div>
+</div>
+
+
